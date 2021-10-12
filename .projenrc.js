@@ -1,12 +1,29 @@
-const { TypeScriptProject } = require('projen');
+const { TypeScriptProject, UpgradeDependenciesSchedule } = require('projen');
+
 const project = new TypeScriptProject({
+  eslint: false, // TODO eslint 8.0 failure
   defaultReleaseBranch: 'main',
   name: 'jest-aws-client-mock',
-
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
-  // release: undefined,      /* Add release management to this project. */
+  description: 'Jest mock for AWS SDK v3 Clients',
+  keywords: ['jest', 'mock', 'aws-sdk-v3', 'aws', 'aws-client'],
+  repository: 'https://github.com/hupe1980/jest-aws-client-mock.git',
+  license: 'MIT',
+  copyrightOwner: 'Frank Hübner',
+  releaseToNpm: true,
+  devDeps: ['@aws-sdk/client-sns', '@aws-sdk/types', 'jest'],
+  depsUpgrade: true,
+  depsUpgradeOptions: {
+    workflowOptions: {
+      labels: ['auto-approve', 'auto-merge'],
+      secret: 'AUTOMATION_GITHUB_TOKEN',
+      schedule: UpgradeDependenciesSchedule.WEEKLY,
+    },
+  },
+  autoApproveUpgrades: true,
+  autoApproveOptions: {
+    secret: 'GITHUB_TOKEN',
+    allowedUsernames: ['hupe1980'],
+  }
 });
+project.gitignore.exclude('.DS_Store');
 project.synth();
