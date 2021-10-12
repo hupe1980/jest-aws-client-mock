@@ -1,19 +1,15 @@
 import { PublishCommand, SNSClient } from '@aws-sdk/client-sns';
 
-import { AwsClientMock, mockClient } from '../src/mock-client';
+import { mockClient } from '../src/mock-client';
+
+const snsMock = mockClient(SNSClient);
 
 const command = new PublishCommand({
     Message: 'message',
     TopicArn: 'arn:aws:sns:us-east-1:111111111111:TestTopic',
 });
 
-let snsMock: AwsClientMock<SNSClient>;
-
 beforeEach(() => {
-    snsMock = mockClient(SNSClient);
-});
-
-afterEach(() => {
     snsMock.mockReset();
 });
 
@@ -63,7 +59,19 @@ test('mockResolvedValue', async () => {
     expect(result2).toEqual({ MessageId: '456' })
 });
 
-test('mockRejectedValue', async () => {
+test('mockRejectedValue - string', async () => {
+    expect.assertions(1);
+
+    const snsClient = new SNSClient({});
+
+    snsMock.mockRejectedValue('MockError');
+
+    const throws = async () => await snsClient.send(command);
+
+    await expect(throws()).rejects.toThrow('MockError');
+});
+
+test('mockRejectedValue - Error', async () => {
     expect.assertions(1);
 
     const snsClient = new SNSClient({});

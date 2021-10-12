@@ -13,15 +13,11 @@ yarn add -D jest-aws-client-mock
 # How to use
 ```typescript
 import { PublishCommand, SNSClient } from '@aws-sdk/client-sns';
-import { AwsClientMock, mockClient } from 'jest-aws-client-mock';
+import { mockClient } from 'jest-aws-client-mock';
 
-let snsMock: AwsClientMock<SNSClient>;
+const snsMock = mockClient(SNSClient);
 
 beforeEach(() => {
-    snsMock = mockClient(SNSClient);
-});
-
-afterEach(() => {
     snsMock.mockReset();
 });
 

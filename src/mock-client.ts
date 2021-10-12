@@ -1,4 +1,4 @@
-import type { Client, MetadataBearer, Command } from '@aws-sdk/types';
+import type { Client, MetadataBearer, Command, SdkError } from '@aws-sdk/types';
 
 export const mockClient = <TInput extends object, TOutput extends MetadataBearer>(client: InstanceOrClassType<Client<TInput, TOutput, any>>) => {
     const instance = isInstance(client) ? client : client.prototype;
@@ -42,7 +42,7 @@ export class AwsMock<TInput extends object, TOutput extends MetadataBearer> {
         return this;
     }
 
-    public mockRejectedValue(error: string | Error | AwsError) {
+    public mockRejectedValue(error: string | Error | SdkError) {
         if (typeof error === 'string') {
             error = new Error(error);
         }
@@ -50,7 +50,7 @@ export class AwsMock<TInput extends object, TOutput extends MetadataBearer> {
         return this;
     }
 
-    public mockRejectedValueOnce(error: string | Error | AwsError) {
+    public mockRejectedValueOnce(error: string | Error | SdkError) {
         if (typeof error === 'string') {
             error = new Error(error);
         }
@@ -67,13 +67,6 @@ export class AwsMock<TInput extends object, TOutput extends MetadataBearer> {
         this.send.mockImplementationOnce(fn as any);
         return this;
     }
-}
-
-export interface AwsError extends Partial<Error>, Partial<MetadataBearer> {
-    Type?: string;
-    Code?: string;
-    $fault?: 'client' | 'server';
-    $service?: string;
 }
 
 const isInstance = <TClient extends Client<any, any, any>>(client: InstanceOrClassType<TClient>): client is TClient => (client as TClient).send !== undefined;
