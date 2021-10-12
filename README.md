@@ -4,16 +4,16 @@
 # Installation
 ```bash
 // with npm
-npm install -D jest-google-maps-mock
+npm install -D jest-aws-client-mock
 
 // with yarn
-yarn add -D jest-google-maps-mock
+yarn add -D jest-aws-client-mock
 ```
 
 # How to use
 ```typescript
 import { PublishCommand, SNSClient } from '@aws-sdk/client-sns';
-import { AwsClientMock, mockClient } from 'jest-google-maps-mock';
+import { AwsClientMock, mockClient } from 'jest-aws-client-mock';
 
 let snsMock: AwsClientMock<SNSClient>;
 
