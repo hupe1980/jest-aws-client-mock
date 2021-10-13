@@ -14,7 +14,7 @@ beforeEach(() => {
 });
 
 test('mock', async () => {
-  expect.assertions(2);
+  expect.assertions(4);
 
   const snsClient = new SNSClient({});
 
@@ -23,6 +23,8 @@ test('mock', async () => {
 
   expect(snsMock.mock.calls.length).toBe(2);
   expect(snsMock).toHaveBeenCalledTimes(2);
+  expect(snsMock).toHaveBeenNthCalledWith(1, command);
+  expect(snsMock).toHaveBeenNthCalledWith(2, command);
 });
 
 test('mockResolvedValue', async () => {

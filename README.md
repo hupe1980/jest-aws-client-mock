@@ -1,7 +1,10 @@
 # jest-aws-client-mock
+![Build](https://github.com/hupe1980/jest-aws-client-mock/workflows/build/badge.svg)
+![Release](https://github.com/hupe1980/jest-aws-client-mock/workflows/release/badge.svg)
+
 > Jest mock for AWS SDK v3 Clients
 
-# Installation
+## Installation
 ```bash
 // with npm
 npm install -D jest-aws-client-mock
@@ -10,7 +13,7 @@ npm install -D jest-aws-client-mock
 yarn add -D jest-aws-client-mock
 ```
 
-# How to use
+## How to use
 ```typescript
 import { PublishCommand, SNSClient } from '@aws-sdk/client-sns';
 import { mockClient } from 'jest-aws-client-mock';
@@ -42,5 +45,5 @@ test('mock sns client', async () => {
 });
 ```
 
-# License
-MIT(License)
+## License
+[MIT](LICENSE)
