@@ -8,14 +8,14 @@ export const mockClient = <TInput extends object, TOutput extends MetadataBearer
   return new AwsMock<TInput, TOutput>(send);
 };
 
-export type AwsClientMock<TClient extends Client<any, any, any>> =
-    TClient extends Client<infer TInput, infer TOutput, any> ? AwsMock<TInput, TOutput> : never;
+// eslint-disable-next-line max-len
+export type AwsClientMock<TClient extends Client<any, any, any>> = TClient extends Client<infer TInput, infer TOutput, any> ? AwsMock<TInput, TOutput> : never;
 
 export class AwsMock<TInput extends object, TOutput extends MetadataBearer> {
   _isMockFunction = true;
 
   // eslint-disable-next-line max-len
-  constructor(public send: jest.SpyInstance<void | Promise<TOutput>, [command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: ((err: any, data?: TOutput | undefined) => void) | undefined]>) {}
+  constructor(public send: jest.SpyInstance<void | Promise<TOutput>, [command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: Callback<TOutput>]>) {}
 
   public mockReset() {
     this.send.mockReset();
@@ -71,13 +71,13 @@ export class AwsMock<TInput extends object, TOutput extends MetadataBearer> {
   }
 
   // eslint-disable-next-line max-len
-  public mockImplementation(fn?: ((command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: ((err: any, data?: TOutput | undefined) => void) | undefined) => void | CommandOutput<TOutput>) | undefined) {
+  public mockImplementation(fn?: ((command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: Callback<TOutput>) => void | CommandOutput<TOutput>) | undefined) {
     this.send.mockImplementation(fn as any);
     return this;
   }
 
   // eslint-disable-next-line max-len
-  public mockImplementationOnce(fn: (command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: ((err: any, data?: TOutput | undefined) => void) | undefined) => void | CommandOutput<TOutput>) {
+  public mockImplementationOnce(fn: (command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: Callback<TOutput>) => void | CommandOutput<TOutput>) {
     this.send.mockImplementationOnce(fn as any);
     return this;
   }
@@ -91,5 +91,7 @@ type ClassType<T> = {
 };
 
 type InstanceOrClassType<T> = T | ClassType<T>;
+
+type Callback<T> = (err: any, data?: T | undefined) => void
 
 type CommandOutput<T> = Partial<T> | Promise<Partial<T>>;
