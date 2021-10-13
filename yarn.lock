@@ -1331,14 +1331,14 @@
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
 "@types/node@*":
-  version "16.10.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.10.6.tgz#62ae9e89520c22fb1f20db5cc8691578c84f7701"
-  integrity sha512-e52UMMGr7HPrVqOK12+GOfihuuGvhpcPzTNhG+OynqQlWXFF3gSPw4izhefNoCwB0w1PyADCMmelaGtXtd/zyw==
+  version "16.10.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.10.8.tgz#2a30cec3635d8903b65256d4319a2c1988325074"
+  integrity sha512-atlRPM4gM/BABQ2MiXm38veMVL+kz6vFAj1hvqC1wDxWNrnr3t58PozLSecgLBrKNGISunQl2SxxIJcYV3tO2w==
 
 "@types/node@^14.17.0":
-  version "14.17.23"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.17.23.tgz#822401bb45f116d36f81f21c881fd97314b10e04"
-  integrity sha512-476I8l9SsG1AqYWfG38IClUije4SgDu39Z8SDD7dEBCb8eZaADN4T57cMjN09F6bEInes41/Wuv5cbIfLgarbA==
+  version "14.17.25"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.17.25.tgz#a1f93cc569b58292551c14b81fd74634eceb0dde"
+  integrity sha512-85DGKK4X9h+JEbs69xggu9j6y/aAExbfZzTrUMSqSwATwYXywbxRLaNQyJ7WibJjsC4OcxJWJwtuANUzDqMc7A==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -2647,9 +2647,9 @@ eslint-import-resolver-typescript@^2.5.0:
     tsconfig-paths "^3.9.0"
 
 eslint-module-utils@^2.7.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/eslint-module-utils/-/eslint-module-utils-2.7.0.tgz#9e97c12688113401259b39d960e6a1f09f966435"
-  integrity sha512-hqSE88MmHl3ru9SYvDyGrlo0JwROlf9fiEMplEV7j/EAuq9iSlIlyCFbBT6pdULQBSnBYtYKiMLps+hKkyP7Gg==
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/eslint-module-utils/-/eslint-module-utils-2.7.1.tgz#b435001c9f8dd4ab7f6d0efcae4b9696d4c24b7c"
+  integrity sha512-fjoetBXQZq2tSTWZ9yWVl2KuFrTZZH3V+9iD1V1RfpDgxzJR+mPd/KZmMiA8gbPqdBzpNiEHOuT7IYEWxrH0zQ==
   dependencies:
     debug "^3.2.7"
     find-up "^2.1.0"
