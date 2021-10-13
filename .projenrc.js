@@ -1,7 +1,7 @@
 const { TypeScriptProject, UpgradeDependenciesSchedule } = require('projen');
 
 const project = new TypeScriptProject({
-  eslint: false, // TODO eslint 8.0 failure
+  //eslint: false, // TODO eslint 8.0 failure
   defaultReleaseBranch: 'main',
   name: 'jest-aws-client-mock',
   description: 'Jest mock for AWS SDK v3 Clients',
@@ -23,7 +23,7 @@ const project = new TypeScriptProject({
   autoApproveOptions: {
     secret: 'GITHUB_TOKEN',
     allowedUsernames: ['hupe1980'],
-  }
+  },
 });
 project.gitignore.exclude('.DS_Store');
 project.synth();

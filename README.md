@@ -18,27 +18,27 @@ import { mockClient } from 'jest-aws-client-mock';
 const snsMock = mockClient(SNSClient);
 
 beforeEach(() => {
-    snsMock.mockReset();
+  snsMock.mockReset();
 });
 
 test('mock sns client', async () => {
-    expect.assertions(2);
+  expect.assertions(2);
 
-    const snsClient = new SNSClient({});
-    
-    const command = new PublishCommand({
-        Message: 'message',
-        TopicArn: 'arn:aws:sns:us-east-1:111111111111:TestTopic',
-    });
+  const snsClient = new SNSClient({});
 
-    snsMock.mockResolvedValue({
-        MessageId: '123',
-    });
-    
-    const result = await snsClient.send(command);
+  const command = new PublishCommand({
+      Message: 'message',
+      TopicArn: 'arn:aws:sns:us-east-1:111111111111:TestTopic',
+  });
 
-    expect(result).toEqual({ MessageId: '123' })
-    expect(snsMock.mock.calls.length).toBe(1);
+  snsMock.mockResolvedValue({
+      MessageId: '123',
+  });
+
+  const result = await snsClient.send(command);
+
+  expect(snsMock).toHaveBeenCalledTimes(1);
+  expect(result).toEqual({ MessageId: '123' })
 });
 ```
 
