@@ -25,7 +25,7 @@ beforeEach(() => {
 });
 
 test('mock sns client', async () => {
-  expect.assertions(2);
+  expect.assertions(3);
 
   const snsClient = new SNSClient({});
 
@@ -41,6 +41,7 @@ test('mock sns client', async () => {
   const result = await snsClient.send(command);
 
   expect(snsMock).toHaveBeenCalledTimes(1);
+  expect(snsMock).toBeCalledWith(command);
   expect(result).toEqual({ MessageId: '123' })
 });
 ```

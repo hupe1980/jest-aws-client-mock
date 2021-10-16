@@ -28,7 +28,7 @@ test('mock', async () => {
 });
 
 test('mockResolvedValue', async () => {
-  expect.assertions(1);
+  expect.assertions(3);
 
   const snsClient = new SNSClient({});
 
@@ -38,6 +38,8 @@ test('mockResolvedValue', async () => {
 
   const result = await snsClient.send(command);
 
+  expect(snsMock).toHaveBeenCalledTimes(1);
+  expect(snsMock).toBeCalledWith(command);
   expect(result).toEqual({ MessageId: '123' });
 });
 
@@ -123,6 +125,24 @@ test('mockImplementationOnce', async () => {
   }));
 
   snsMock.mockImplementationOnce((_command) => Promise.resolve({
+    MessageId: '456',
+  }));
+
+  const result1 = await snsClient.send(command);
+  const result2 = await snsClient.send(command);
+
+  expect(result1).toEqual({ MessageId: '123' });
+  expect(result2).toEqual({ MessageId: '456' });
+});
+
+test('mockImplementationOnce - chained', async () => {
+  expect.assertions(2);
+
+  const snsClient = new SNSClient({});
+
+  snsMock.mockImplementationOnce((_command) => Promise.resolve({
+    MessageId: '123',
+  })).mockImplementationOnce((_command) => Promise.resolve({
     MessageId: '456',
   }));
 
