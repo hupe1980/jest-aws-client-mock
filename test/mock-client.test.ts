@@ -2,8 +2,7 @@ import { PublishCommand, SNSClient } from '@aws-sdk/client-sns';
 
 import { mockClient } from '../src/mock-client';
 
-describe('mockClient - class', () => {
-
+describe('mockClient - classtype', () => {
   const snsMock = mockClient(SNSClient);
 
   const command = new PublishCommand({

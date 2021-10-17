@@ -1,7 +1,15 @@
 {
   "dependencies": [
     {
+      "name": "@aws-sdk/client-dynamodb",
+      "type": "build"
+    },
+    {
       "name": "@aws-sdk/client-sns",
+      "type": "build"
+    },
+    {
+      "name": "@aws-sdk/lib-dynamodb",
       "type": "build"
     },
     {

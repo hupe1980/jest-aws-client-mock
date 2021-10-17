@@ -9,7 +9,7 @@ const project = new TypeScriptProject({
   license: 'MIT',
   copyrightOwner: 'Frank Hübner',
   releaseToNpm: true,
-  devDeps: ['@aws-sdk/client-sns', '@aws-sdk/types', 'jest'],
+  devDeps: ['@aws-sdk/client-dynamodb', '@aws-sdk/lib-dynamodb', '@aws-sdk/client-sns', '@aws-sdk/types', 'jest'],
   depsUpgrade: true,
   depsUpgradeOptions: {
     workflowOptions: {
@@ -22,6 +22,11 @@ const project = new TypeScriptProject({
   autoApproveOptions: {
     secret: 'GITHUB_TOKEN',
     allowedUsernames: ['hupe1980'],
+  },
+  tsconfig: {
+    compilerOptions: {
+      lib: ['dom', 'es2019'],
+    },
   },
 });
 project.gitignore.exclude('.DS_Store');
