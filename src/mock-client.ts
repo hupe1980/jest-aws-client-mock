@@ -50,7 +50,7 @@ export class AwsMock<TInput extends object, TOutput extends MetadataBearer> {
   /**
    * Sets the name of the mock.
    */
-  public mockname(name: string) {
+  public mockName(name: string) {
     this.send.mockName(name);
     return this;
   }

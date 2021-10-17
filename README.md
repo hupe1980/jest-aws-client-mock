@@ -27,15 +27,15 @@ beforeEach(() => {
 test('mock sns client', async () => {
   expect.assertions(3);
 
+  snsMock.mockResolvedValue({
+      MessageId: '123',
+  });
+
   const snsClient = new SNSClient({});
 
   const command = new PublishCommand({
       Message: 'message',
       TopicArn: 'arn:aws:sns:us-east-1:111111111111:TestTopic',
-  });
-
-  snsMock.mockResolvedValue({
-      MessageId: '123',
   });
 
   const result = await snsClient.send(command);
