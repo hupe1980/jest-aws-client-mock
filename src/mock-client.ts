@@ -6,7 +6,7 @@ import type { Client, MetadataBearer, Command, SdkError } from '@aws-sdk/types';
 export const mockClient = <TInput extends object, TOutput extends MetadataBearer>(client: InstanceOrClassType<Client<TInput, TOutput, any>>) => {
   const instance = isInstance(client) ? client : client.prototype;
 
-  const send = jest.spyOn(instance, 'send').mockImplementation(jest.fn());
+  const send = jest.spyOn(instance, 'send');
 
   return new AwsMock<TInput, TOutput>(send);
 };
@@ -18,7 +18,13 @@ export class AwsMock<TInput extends object, TOutput extends MetadataBearer> {
   _isMockFunction = true;
 
   // eslint-disable-next-line max-len
-  constructor(public send: jest.SpyInstance<void | Promise<TOutput>, [command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: Callback<TOutput>]>) {}
+  private send: jest.SpyInstance<void | Promise<TOutput>, [command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: Callback<TOutput>]>;
+
+  // eslint-disable-next-line max-len
+  constructor(send: jest.SpyInstance<void | Promise<TOutput>, [command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: Callback<TOutput>]>) {
+    this.send = send;
+    this.send.mockImplementation(() => undefined); // default
+  }
 
   /**
    * Does everything that `mockFn.mockClear()` does, and also removes any mocked return values or implementations.

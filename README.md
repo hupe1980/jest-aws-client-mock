@@ -41,7 +41,7 @@ test('mock sns client', async () => {
   const result = await snsClient.send(command);
 
   expect(snsMock).toHaveBeenCalledTimes(1);
-  expect(snsMock).toBeCalledWith(command);
+  expect(snsMock).toHaveBeenCalledWith(command);
   expect(result).toEqual({ MessageId: '123' })
 });
 ```
@@ -59,7 +59,7 @@ beforeEach(() => {
 });
 
 test('dynamodbDocumentClient', async () => {
-  expect.assertions(4);
+  expect.assertions(3);
 
   const output: Partial<GetCommandOutput> = {
     Item: {
@@ -82,9 +82,8 @@ test('dynamodbDocumentClient', async () => {
 
   const result = await ddb.send(command);
 
-  expect(ddbMock.mock.calls.length).toBe(1);
   expect(ddbMock).toHaveBeenCalledTimes(1);
-  expect(ddbMock).toHaveBeenNthCalledWith(1, command);
+  expect(ddbMock).toHaveBeenCalledWith(command);
   expect(result).toEqual(output);
 });
 ```

@@ -205,22 +205,12 @@ describe('mockClient - classtype', () => {
     await snsClient.send(command);
 
     expect(snsMock.mock.calls.length).toBe(1);
-    expect(snsMock.send).toHaveBeenCalledTimes(1);
+    expect(snsMock).toHaveBeenCalledTimes(1);
 
     snsMock.mockClear();
 
     expect(snsMock.mock.calls.length).toBe(0);
-    expect(snsMock.send).toHaveBeenCalledTimes(0);
-  });
-
-  test('mockRestore', () => {
-    const snsClient = new SNSClient({});
-
-    expect(jest.isMockFunction(snsClient.send)).toBe(true);
-
-    snsMock.mockRestore();
-
-    expect(jest.isMockFunction(snsClient.send)).toBe(false);
+    expect(snsMock).toHaveBeenCalledTimes(0);
   });
 
   test('mockName', () => {
@@ -232,11 +222,26 @@ describe('mockClient - classtype', () => {
   });
 });
 
+describe('mockClient - restore', () => {
+  test('mockRestore', () => {
+    const snsClient = new SNSClient({});
+
+    const snsMock = mockClient(snsClient);
+
+    expect(jest.isMockFunction(snsClient.send)).toBe(true);
+
+    snsMock.mockRestore();
+
+    expect(jest.isMockFunction(snsClient.send)).toBe(false);
+  });
+});
+
 describe('mockClient - instance', () => {
   test('mock', async () => {
     expect.assertions(4);
 
     const snsClient = new SNSClient({});
+
     const snsMock = mockClient(snsClient);
 
     const command = new PublishCommand({
