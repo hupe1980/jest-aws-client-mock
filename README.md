@@ -88,5 +88,39 @@ test('dynamodbDocumentClient', async () => {
 });
 ```
 
+### Asymetric matchers
+```typescript
+import { PublishCommand, SNSClient } from '@aws-sdk/client-sns';
+import { mockClient } from 'jest-aws-client-mock';
+
+const snsMock = mockClient(SNSClient);
+
+beforeEach(() => {
+  snsMock.mockReset();
+});
+
+test('mock - asymetric matcher', async () => {
+  expect.assertions(1);
+
+  const snsClient = new SNSClient({});
+
+  const command = new PublishCommand({
+      Message: 'random',
+      TopicArn: 'arn:aws:sns:us-east-1:111111111111:TestTopic',
+  });
+
+  await snsClient.send(command);
+
+  expect(snsMock).toHaveBeenCalledWith(
+    expect.objectContaining({
+      input: {
+        TopicArn: 'arn:aws:sns:us-east-1:111111111111:TestTopic',
+        Message: expect.any(String),
+      },
+    }),
+  );
+});
+```
+
 ## License
 [MIT](LICENSE)

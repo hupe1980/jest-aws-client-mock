@@ -28,6 +28,23 @@ describe('mockClient - classtype', () => {
     expect(snsMock).toHaveBeenNthCalledWith(2, command);
   });
 
+  test('mock - asymetric matcher', async () => {
+    expect.assertions(1);
+
+    const snsClient = new SNSClient({});
+
+    await snsClient.send(command);
+
+    expect(snsMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        input: {
+          TopicArn: 'arn:aws:sns:us-east-1:111111111111:TestTopic',
+          Message: expect.any(String),
+        },
+      }),
+    );
+  });
+
   test('mockResolvedValue', async () => {
     expect.assertions(3);
 
