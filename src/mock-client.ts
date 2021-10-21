@@ -17,11 +17,9 @@ export type AwsClientMock<TClient extends Client<any, any, any>> = TClient exten
 export class AwsMock<TInput extends object, TOutput extends MetadataBearer> {
   _isMockFunction = true;
 
-  // eslint-disable-next-line max-len
-  private send: jest.SpyInstance<void | Promise<TOutput>, [command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: Callback<TOutput>]>;
+  private send: SpyInstance<TInput, TOutput>;
 
-  // eslint-disable-next-line max-len
-  constructor(send: jest.SpyInstance<void | Promise<TOutput>, [command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: Callback<TOutput>]>) {
+  constructor(send: SpyInstance<TInput, TOutput>) {
     this.send = send;
     this.send.mockImplementation(() => undefined); // default
   }
@@ -137,3 +135,6 @@ type InstanceOrClassType<T> = T | ClassType<T>;
 type Callback<T> = (err: any, data?: T | undefined) => void
 
 type CommandOutput<T> = Partial<T> | Promise<Partial<T>>;
+
+// eslint-disable-next-line max-len
+type SpyInstance<TInput extends object, TOutput extends MetadataBearer> = jest.SpyInstance<void | Promise<TOutput>, [command: Command<TInput, TInput, TOutput, TOutput, any>, options?: any, cb?: Callback<TOutput>]>
